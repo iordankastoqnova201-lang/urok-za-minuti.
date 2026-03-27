@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Помощник за учителя – конкурсно приложение</title>
+<style>
+  :root{
+    --bg:#f4f7fb; --card:#ffffff; --line:#d9e2f1; --text:#1f2937; --muted:#6b7280;
+    --accent:#315efb; --accent2:#1d3faa; --soft:#eef3ff; --ok:#0f766e;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
+  .wrap{max-width:1200px;margin:24px auto;padding:0 16px}
+  .hero{
+    background:linear-gradient(135deg,#315efb 0%, #7c3aed 100%);
+    color:#fff;border-radius:24px;padding:28px;box-shadow:0 12px 30px rgba(49,94,251,.18);
+    margin-bottom:18px;
+  }
+  .hero h1{margin:0 0 8px;font-size:34px}
+  .hero p{margin:0;opacity:.95;font-size:17px;max-width:760px;line-height:1.5}
+  .badge{display:inline-block;background:rgba(255,255,255,.18);padding:8px 12px;border-radius:999px;font-size:13px;font-weight:700;margin-bottom:12px}
+  .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:20px;
+    box-shadow:0 8px 24px rgba(31,41,55,.05);padding:20px;margin-bottom:18px
+  }
+  .card h2{margin:0 0 14px;font-size:22px}
+  .sub{color:var(--muted);font-size:14px;margin-top:-6px;margin-bottom:14px}
+  .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  label{display:block;font-weight:700;margin-bottom:6px}
+  input,select,textarea{
+    width:100%;border:1px solid var(--line);border-radius:12px;padding:11px 12px;
+    font-size:15px;background:#fff;color:var(--text)
+  }
+  textarea{min-height:110px;resize:vertical}
+  button{
+    border:none;border-radius:12px;padding:11px 16px;font-size:15px;font-weight:700;cursor:pointer
+  }
+  .primary{background:var(--accent);color:#fff}
+  .primary:hover{background:var(--accent2)}
+  .secondary{background:var(--soft);color:var(--accent2)}
+  .row{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+  .output{
+    white-space:pre-wrap;background:#fbfcff;border:1px solid var(--line);border-radius:14px;
+    padding:16px;min-height:210px;line-height:1.6
+  }
+  .pill{
+    display:inline-block;background:#eefaf7;color:var(--ok);border-radius:999px;padding:6px 10px;
+    font-size:12px;font-weight:700;margin-right:6px;margin-bottom:6px
+  }
+  ul.clean{margin:8px 0 0 18px;padding:0}
+  ul.clean li{margin:6px 0}
+  @media (max-width:900px){
+    .grid,.grid2,.grid3{grid-template-columns:1fr}
+    .hero h1{font-size:28px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <div class="badge">Образователно приложение в помощ на учителя</div>
+    <h1>Помощник за учителя</h1>
+    <p>Мини приложение, което генерира готови материали за учителя: цели на урок, критерии за оценяване, кратка структура на урок, домашна работа, обратна връзка към ученик и текст за публикация за училищната страница.</p>
+  </div>
+
+  <div class="grid">
+    <div>
+      <div class="card">
+        <h2>Попълни урока</h2>
+        <div class="sub">Въвеждаш тема и няколко параметъра. Приложението създава готов помощен комплект за учителя.</div>
+
+        <div class="grid2">
+          <div>
+            <label>Учебен предмет</label>
+            <select id="subject">
+              <option>Математика</option>
+              <option>Физика</option>
+              <option>Човекът и природата</option>
+              <option>Компютърно моделиране и ИТ</option>
+              <option>Български език и литература</option>
+              <option>Друг</option>
+            </select>
+          </div>
+          <div>
+            <label>Клас</label>
+            <select id="grade">
+              <option>1. клас</option>
+              <option>2. клас</option>
+              <option>3. клас</option>
+              <option>4. клас</option>
+              <option>5. клас</option>
+              <option>6. клас</option>
+              <option selected>7. клас</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid2">
+          <div>
+            <label>Тема на урока</label>
+            <input id="topic" placeholder="напр. Проценти / Светлина и отражение / Безопасност в интернет">
+          </div>
+          <div>
+            <label>Тип урок</label>
+            <select id="lessonType">
+              <option>Нов урок</option>
+              <option>Упражнение</option>
+              <option>Обобщение</option>
+              <option>Преговор</option>
+              <option>Практическа работа</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid3">
+          <div>
+            <label>Основна цел</label>
+            <select id="goalFocus">
+              <option>усвояване на нови знания</option>
+              <option>затвърждаване на знания</option>
+              <option>развитие на практически умения</option>
+              <option>подготовка за проверка</option>
+            </select>
+          </div>
+          <div>
+            <label>Ниво на класа</label>
+            <select id="level">
+              <option>ниско</option>
+              <option selected>смесено</option>
+              <option>добро</option>
+              <option>много добро</option>
+            </select>
+          </div>
+          <div>
+            <label>Продължителност</label>
+            <select id="duration">
+              <option>40 минути</option>
+              <option selected>45 минути</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-top:12px">
+          <label>Специални бележки</label>
+          <textarea id="notes" placeholder="напр. има ученици със затруднения; искам повече практика; урокът да е по-емоционален; включи работа по групи..."></textarea>
+        </div>
+
+        <div class="row">
+          <button class="primary" onclick="generateAll()">Генерирай</button>
+          <button class="secondary" onclick="copySection('lessonPlan')">Копирай структура</button>
+          <button class="secondary" onclick="copySection('criteria')">Копирай критерии</button>
+          <button class="secondary" onclick="copySection('feedback')">Копирай обратна връзка</button>
+          <button class="primary" onclick="downloadWord()">Изтегли Word</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Как помага на учителя</h2>
+        <span class="pill">спестява време</span>
+        <span class="pill">готови текстове</span>
+        <span class="pill">урок за минути</span>
+        <span class="pill">помощ за документация</span>
+        <ul class="clean">
+          <li>Създава бърза структура на урок.</li>
+          <li>Дава ясни цели и очаквани резултати.</li>
+          <li>Предлага критерии за оценяване.</li>
+          <li>Генерира кратка обратна връзка за ученик или клас.</li>
+          <li>Подготвя кратък текст за сайта или Facebook страницата на училището.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div>
+      <div class="card">
+        <h2>1. Структура на урок</h2>
+        <div id="lessonPlan" class="output"></div>
+      </div>
+
+      <div class="card">
+        <h2>2. Критерии за оценяване</h2>
+        <div id="criteria" class="output"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div>
+      <div class="card">
+        <h2>3. Домашна работа</h2>
+        <div id="homework" class="output"></div>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h2>4. Обратна връзка към ученик / клас</h2>
+        <div id="feedback" class="output"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>5. Кратка публикация за сайта / Facebook</h2>
+    <div id="post" class="output"></div>
+  </div>
+</div>
+
+<script>
+function v(id){ return document.getElementById(id).value.trim(); }
+function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function nl2br(s){ return esc(s).replace(/\n/g,'<br>'); }
+
+function buildTexts(){
+  const subject = v('subject') || 'Предмет';
+  const grade = v('grade') || 'клас';
+  const topic = v('topic') || 'Тема на урока';
+  const lessonType = v('lessonType') || 'Урок';
+  const goalFocus = v('goalFocus') || 'усвояване на нови знания';
+  const level = v('level') || 'смесено';
+  const duration = v('duration') || '45 минути';
+  const notes = v('notes');
+
+  const noteSentence = notes ? " Специален акцент: " + notes.replace(/\.$/, '') + "." : "";
+
+  const warmup = {
+    "Математика":"кратка устна задача за актуализиране на знанията",
+    "Физика":"наблюдение, въпрос или житейски пример",
+    "Човекът и природата":"разговор по илюстрация или природен факт",
+    "Компютърно моделиране и ИТ":"кратка демонстрация или въпрос от практиката",
+    "Български език и литература":"мотивационен въпрос или кратък текст"
+  }[subject] || "кратка мотивационна задача";
+
+  const practiceByLevel = {
+    "ниско":"повече водена работа, ясни кратки инструкции и опора с примери",
+    "смесено":"съчетаване на обща работа, работа по двойки и кратка самостоятелна задача",
+    "добро":"самостоятелни задачи и работа по двойки с кратко обсъждане",
+    "много добро":"предизвикателни задачи, аргументация и творческо приложение"
+  }[level];
+
+  const lessonPlan =
+`ПРЕДМЕТ: ${subject}
+КЛАС: ${grade}
+ТЕМА: ${topic}
+ТИП УРОК: ${lessonType}
+ПРОДЪЛЖИТЕЛНОСТ: ${duration}
+
+ОСНОВНА ЦЕЛ:
+Фокусът е върху ${goalFocus} по темата „${topic}“.
+
+ОЧАКВАНИ РЕЗУЛТАТИ:
+– учениците разбират основните понятия по темата;
+– прилагат знанията в позната ситуация;
+– показват активност и участие според възможностите си.
+
+СТРУКТУРА НА УРОКА:
+1. Организационен момент – 2 мин.
+2. Мотивация и актуализация – 5 мин.
+   Подход: ${warmup}.
+3. Представяне / работа по темата – 15 мин.
+4. Практическа дейност – 15 мин.
+   Подходящо е: ${practiceByLevel}.
+5. Обобщение и рефлексия – 5 мин.
+6. Домашна работа – 3 мин.${noteSentence}`;
+
+  const criteria =
+`КРИТЕРИИ ЗА ОЦЕНЯВАНЕ
+
+1. Разбиране на основните понятия по темата „${topic}“.
+2. Умение за прилагане на знанията в задача или практическа ситуация.
+3. Активност и участие в часа.
+4. Точност, старание и завършеност на работата.
+5. Умение за самостоятелна работа или работа в екип.
+
+ПОДХОД ЗА ${grade}:
+– при силно представяне: самостоятелно, уверено и точно изпълнение;
+– при средно представяне: частично правилно изпълнение с насочване;
+– при затруднение: нужда от допълнителни обяснения и упражнения.`;
+
+  const homework =
+`ДОМАШНА РАБОТА
+
+Основна задача:
+Да се затвърди темата „${topic}“ чрез кратка самостоятелна работа у дома.
+
+Вариант за учителя:
+– 3 по-лесни задачи;
+– 2 задачи със средна трудност;
+– 1 творческа или практическа задача.
+
+Препоръка:
+Домашната работа да бъде кратка, ясна и съобразена с нивото на класа (${level}).`;
+
+  const feedback =
+`ОБРАТНА ВРЪЗКА
+
+Вариант към ученик:
+„Днес се включи добре в работата по темата „${topic}“. Продължавай да работиш спокойно и последователно. При още упражнения ще станеш по-уверен/а.“
+
+Вариант към клас:
+„Класът се включи активно в урока по ${subject} на тема „${topic}“. Учениците показаха интерес и старание. Необходимо е темата да бъде допълнително затвърдена чрез упражнения и кратка самостоятелна работа.“`;
+
+  const post =
+`Днес в ${grade} се проведе ${lessonType.toLowerCase()} по ${subject} на тема „${topic}“.
+
+По време на часа учениците работиха с интерес, участваха в различни дейности и затвърдиха важни знания и умения. Акцентът беше върху ${goalFocus}, като задачите бяха съобразени с възможностите на класа.
+
+Часът премина с активност, старание и положителна учебна атмосфера.${noteSentence}`;
+
+  return {lessonPlan, criteria, homework, feedback, post, topic};
+}
+
+function generateAll(){
+  const {lessonPlan, criteria, homework, feedback, post} = buildTexts();
+  document.getElementById('lessonPlan').textContent = lessonPlan;
+  document.getElementById('criteria').textContent = criteria;
+  document.getElementById('homework').textContent = homework;
+  document.getElementById('feedback').textContent = feedback;
+  document.getElementById('post').textContent = post;
+}
+
+function copySection(id){
+  const text = document.getElementById(id).textContent.trim();
+  if(!text){ alert('Първо натисни „Генерирай“.'); return; }
+  navigator.clipboard.writeText(text).then(() => alert('Копирано.'));
+}
+
+function downloadWord(){
+  const {lessonPlan, criteria, homework, feedback, post, topic} = buildTexts();
+  generateAll();
+
+  const htmlDoc = `<!DOCTYPE html>
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+      xmlns:w="urn:schemas-microsoft-com:office:word"
+      xmlns="http://www.w3.org/TR/REC-html40">
+<head>
+<meta charset="utf-8">
+<meta name="ProgId" content="Word.Document">
+<style>
+  @page { size: A4; margin: 2.3cm 2cm 2.3cm 2.8cm; }
+  body { font-family: Arial, sans-serif; font-size: 12pt; line-height: 1.5; color: #000; }
+  .title { text-align:center; font-weight:bold; font-size:14pt; margin:10px 0 14px; }
+  .break { page-break-before: always; }
+</style>
+</head>
+<body>
+  <div class="title">Помощник за учителя</div>
+  <div>${nl2br(lessonPlan)}</div>
+
+  <div class="break"></div>
+  <div class="title">Критерии за оценяване</div>
+  <div>${nl2br(criteria)}</div>
+
+  <div class="break"></div>
+  <div class="title">Домашна работа</div>
+  <div>${nl2br(homework)}</div>
+
+  <div class="break"></div>
+  <div class="title">Обратна връзка</div>
+  <div>${nl2br(feedback)}</div>
+
+  <div class="break"></div>
+  <div class="title">Публикация за сайта / Facebook</div>
+  <div>${nl2br(post)}</div>
+</body>
+</html>`;
+
+  const blob = new Blob(['\ufeff', htmlDoc], {type:'application/msword'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  const safeName = (topic || 'pomoshtnik_za_uchitelya').replace(/[^\p{L}\p{N}\s.-]/gu,'').trim().replace(/\s+/g,'_');
+  a.download = 'pomoshtnik_za_uchitelya_' + safeName + '.doc';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+</script>
+</body>
+</html>
